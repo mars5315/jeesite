@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.fund.dao.FundDao">
+    
+	<sql id="fundColumns">
+		a.id AS "id",
+		a.fundname AS "fundname",
+		a.fundno AS "fundno",
+		a.releasedate AS "releasedate",
+		a.type AS "type",
+		a.profit AS "profit",
+		a.profit7d AS "profit7d",
+		a.profit14d AS "profit14d",
+		a.profit28d AS "profit28d",
+		a.profit35d AS "profit35d",
+		a.profit1m AS "profit1m",
+		a.profit3m AS "profit3m",
+		a.profit6m AS "profit6m",
+		a.profit1y AS "profit1y",
+		a.profity AS "profity",
+		a.charge AS "charge",
+		a.minibuy AS "minibuy"
+	</sql>
+	
+	<sql id="fundJoins">
+	</sql>
+    
+	<select id="get" resultType="Fund">
+		SELECT 
+			<include refid="fundColumns"/>
+		FROM fund a
+		<include refid="fundJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="Fund">
+		SELECT 
+			<include refid="fundColumns"/>
+		FROM fund a
+		<include refid="fundJoins"/>
+		<where>
+			
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="Fund">
+		SELECT 
+			<include refid="fundColumns"/>
+		FROM fund a
+		<include refid="fundJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert"  useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO fund(
+			fundname,
+			fundno,
+			releasedate,
+			type,
+			profit,
+			profit7d,
+			profit14d,
+			profit28d,
+			profit35d,
+			profit1m,
+			profit3m,
+			profit6m,
+			profit1y,
+			profity,
+			charge,
+			minibuy
+		) VALUES (
+			#{fundname},
+			#{fundno},
+			#{releasedate},
+			#{type},
+			#{profit},
+			#{profit7d},
+			#{profit14d},
+			#{profit28d},
+			#{profit35d},
+			#{profit1m},
+			#{profit3m},
+			#{profit6m},
+			#{profit1y},
+			#{profity},
+			#{charge},
+			#{minibuy}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE fund SET 	
+			fundname = #{fundname},
+			fundno = #{fundno},
+			releasedate = #{releasedate},
+			type = #{type},
+			profit = #{profit},
+			profit7d = #{profit7d},
+			profit14d = #{profit14d},
+			profit28d = #{profit28d},
+			profit35d = #{profit35d},
+			profit1m = #{profit1m},
+			profit3m = #{profit3m},
+			profit6m = #{profit6m},
+			profit1y = #{profit1y},
+			profity = #{profity},
+			charge = #{charge},
+			minibuy = #{minibuy}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		DELETE FROM fund
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

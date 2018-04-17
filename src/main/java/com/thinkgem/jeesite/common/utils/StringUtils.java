@@ -423,4 +423,10 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
 		Matcher matcher = pattern.matcher(String);
 		return matcher.matches();
 	}
+	public static boolean isNull(String str){
+		if(str == null || "".equals(str) || "".equals(str.trim()) || "null".equals(str.trim())){
+			return true;
+		}
+		return false;
+	}
 }
